@@ -1,18 +1,27 @@
-﻿namespace CAnyWhere.Views;
+﻿using CAnyWhere.Validators;
+using CAnyWhere.ViewModels;
+using Firebase.Database;
+
+namespace CAnyWhere.Views;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    string username = "";
+    string password = "";
 
 	public MainPage()
 	{
 		InitializeComponent();
 	}
-
-
+  
     private async void OnLogin(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new HomeScreen());
+        Task<bool> isValid = LoginViewModel.OnLogin(username, password);
+        if (isValid.Result)
+        {
+            new DashBoardDataViewModel();
+            await Navigation.PushAsync(new HomeScreen());
+        }
     }
 
     private async void OnSignUp(object sender, EventArgs e)
@@ -22,26 +31,22 @@ public partial class MainPage : ContentPage
 
     void OnUserNameEntryTextChanged(object sender, TextChangedEventArgs e)
     {
-        string oldText = e.OldTextValue;
-        string newText = e.NewTextValue;
-        string myText = entryusername.Text;
+         username = entryusername.Text;
     }
 
     void OnUserNameEntryCompleted(object sender, EventArgs e)
     {
-        string text = ((Entry)sender).Text;
+        username = ((Entry)sender).Text;
     }
 
     void OnPasswordEntryTextChanged(object sender, TextChangedEventArgs e)
     {
-        string oldText = e.OldTextValue;
-        string newText = e.NewTextValue;
-        string myText = entryusername.Text;
+        password = entrypassword.Text;
     }
 
     void OnPasswordEntryCompleted(object sender, EventArgs e)
     {
-        string text = ((Entry)sender).Text;
+        password = ((Entry)sender).Text;
     }
 }
 
