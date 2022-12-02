@@ -1,4 +1,6 @@
-﻿using CAnyWhere.Validators;
+﻿using CAnyWhere.Models;
+using CAnyWhere.Services;
+using CAnyWhere.Validators;
 using CAnyWhere.ViewModels;
 using Firebase.Database;
 
@@ -16,9 +18,19 @@ public partial class MainPage : ContentPage
   
     private async void OnLogin(object sender, EventArgs e)
     {
-        Task<bool> isValid = LoginViewModel.OnLogin(username, password);
-        if (isValid.Result)
+        bool isValid = await LoginViewModel.OnLogin(username, password);
+        if (isValid)
         {
+            LoginClientService LoginClientService = new();
+            string key = username.Replace("@", "atTheRate").Replace(".", "dot").ToUpper();
+            User user = await LoginClientService.GetAsync(key);
+            if (user != null)
+            {
+                if(!user.EmailId.Equals(username) || !user.Password.Equals(password))
+                {
+                    return;
+                }
+            }
             new DashBoardDataViewModel();
             await Navigation.PushAsync(new HomeScreen());
         }

@@ -1,4 +1,5 @@
-﻿using CAnyWhere.Services;
+﻿using CAnyWhere.Models;
+using CAnyWhere.Services;
 
 namespace CAnyWhere.Views;
 
@@ -14,6 +15,11 @@ public partial class HomeScreen : ContentPage
     {
         FileStorageService fileStorageService = new FileStorageService();
         fileStorageService.postAsync("default");
+    }
+
+    private void OnLikeClicked(object sender, EventArgs e)
+    {
+        
     }
 }
 
