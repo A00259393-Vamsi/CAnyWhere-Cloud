@@ -6,20 +6,16 @@ namespace CAnyWhere.Views;
 public partial class HomeScreen : ContentPage
 {
 
-	public HomeScreen()
-	{
-		InitializeComponent();
-	}
-
-    private void onPostVideo(object sender, EventArgs e)
+    private string username;
+    public HomeScreen(string username)
     {
-        FileStorageService fileStorageService = new FileStorageService();
-        fileStorageService.postAsync("default");
+        InitializeComponent();
+        this.username = username;
     }
 
-    private void OnLikeClicked(object sender, EventArgs e)
+    private async void onPostVideoAsync(object sender, EventArgs e)
     {
-        
+        await Navigation.PushAsync(new PostVideoScreen(this.username));
     }
 }
 

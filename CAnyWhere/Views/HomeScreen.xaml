@@ -20,9 +20,9 @@
 
             <Button
                 x:Name="postVideoca"
-                Clicked="onPostVideo"
+                Clicked="onPostVideoAsync"
                 HorizontalOptions="Center"
-                Text="Post Video" />
+                Text="Post Video/Image" />
             <CollectionView ItemsSource="{Binding DashBoardDataCollection}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:DashBoardData">
@@ -50,11 +50,9 @@
                                     <Button
                                         BackgroundColor="Green"
                                         BorderWidth="5"
-                                        Clicked="OnLikeClicked"
                                         CornerRadius="5"
                                         Text="Like" />
                                     <Label
-                                        x:Name="likeCount"
                                         FontSize="14"
                                         MinimumWidthRequest="100"
                                         Text="{Binding LikeCount}"

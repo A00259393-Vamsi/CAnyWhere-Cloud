@@ -26,13 +26,16 @@ public partial class MainPage : ContentPage
             User user = await LoginClientService.GetAsync(key);
             if (user != null)
             {
-                if(!user.EmailId.Equals(username) || !user.Password.Equals(password))
+                if (!user.EmailId.Equals(username) || !user.Password.Equals(password))
                 {
+                    await Application.Current.
+                        MainPage.DisplayAlert("Error", "Username and password " +
+                        "doesnot match. Please try again", "OK");
                     return;
                 }
             }
             new DashBoardDataViewModel();
-            await Navigation.PushAsync(new HomeScreen());
+            await Navigation.PushAsync(new HomeScreen(username));
         }
     }
 

@@ -24,7 +24,20 @@ namespace CAnyWhere.ViewModels
 
         public async Task Refresh()
         {
+            FileStorageService FileStorageService = new();
+            ObservableCollection<string> urls = await FileStorageService.getImagesAndVideosAsync();
             DashBoardData obj = new();
+
+            foreach (string url in urls)
+            {
+                obj.SourceUrl = url;
+                obj.PostedDate = "12/5/2022";
+                obj.Description = "harrasment";
+                obj.LikeCount = "10";
+                obj.DislikeCount = "2";
+                DashBoardDataCollection.Add(obj);
+            }
+
             obj.SourceUrl = "C:\\Users\\visha\\source\\FinalProject\\CAnyWhere\\CAnyWhere\\Resources\\Images\\stop.jpg";
             obj.PostedDate = "12/5/2022";
             obj.Description = "harrasment";
